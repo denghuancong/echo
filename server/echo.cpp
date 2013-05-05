@@ -21,9 +21,12 @@ void echo_server(int iFD) {
         } else if (len == -1) {
             std::cout << "interrupt by error." << std::endl;
             return;
-        } else {
+        } else if(len){
             std::cout << "Data size : " << len << ", data : " << buf << std::endl;
             Write(iFD, buf, len);
+        } else {
+            std::cout << "resv eof, so i exit" << std::endl;
+            return;
         }
     }
 }

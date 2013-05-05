@@ -24,6 +24,8 @@ void echo_client(int iFD) {
             }
         } else {
             std::cout << "Read cmd : " << sendline << std::endl;
+            //add rt
+            sendline[strlen(sendline)] = '\n';
             Write(iFD, sendline, strlen(sendline));
             ReadLine(iFD, recvline, MAX_LINE);   
             puts(recvline);
