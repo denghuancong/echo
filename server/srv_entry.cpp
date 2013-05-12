@@ -10,6 +10,16 @@
 
 #include "srv_entry.h"
 
+void sig_chld(int signo)
+{
+    pid_t    pid;
+    int      stat;
+
+    while ( (pid = waitpid(-1, &stat, WNOHANG)) > 0)
+        printf("child %d terminated\n", pid);
+    return;
+}
+
 int main(int argc, char** argv) {
     
     int iListenFD, iChildFD;
@@ -37,6 +47,9 @@ int main(int argc, char** argv) {
         goto failed;
     }
 
+    //setup SIG_CHILD
+    signal(SIGCHLD, sig_chld);   
+
     std::cout << "Being to accept, SOCK LISTENED....." << std::endl;
    //accept
    socklen_t len;
@@ -45,6 +58,9 @@ int main(int argc, char** argv) {
        bzero((void*)&peer_addr,len);
        len = sizeof(peer_addr);
        iChildFD = accept(iListenFD, (SA)&peer_addr, &len);
+       if(errno == EINTR){
+           continue;
+       }
        if(iChildFD == -1) {
            perror("accept");
            goto failed;

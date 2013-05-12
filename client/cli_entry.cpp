@@ -3,6 +3,14 @@
 #include "echo.h"
 #define SA struct sockaddr*
 #define CSA const SA
+
+void sig_pipe(int signo)
+{
+    printf("%s","pipe break\n");
+    return;
+}
+
+
 int main(int argc, char** argv) {
 
     int iFD;
@@ -18,6 +26,8 @@ int main(int argc, char** argv) {
     addr.sin_family = AF_INET;  
     inet_pton(AF_INET, argv[1], &addr.sin_addr);
     std::cout<< "Server IP : " << argv[1] << ", Port : " << argv[2] << std::endl;
+
+    signal(SIGPIPE,sig_pipe);
 
     //connect
     if(connect(iFD, (CSA)&addr, sizeof(addr))) {
