@@ -21,7 +21,8 @@
 #include <signal.h>
 #include <sys/wait.h>
 #define MAX_LINE 512
-
+#define min(a,b)        ((a) < (b) ? (a) : (b))
+#define max(a,b)        ((a) > (b) ? (a) : (b))
 void Write(int iFD, char* buf, ssize_t size);
 void ReadLine(int iFD, void* line_buf, size_t size);
 typedef    void    Sigfunc(int);

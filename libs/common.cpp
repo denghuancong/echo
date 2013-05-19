@@ -67,11 +67,12 @@ void ReadLine(int iFD, void* line_buf, size_t size) {
                 std::cout << "interrupt by signal" << std::endl;
                 continue;
             } else {
-                std::cout << "write system error" << std::endl;
+                std::cout << "read system error" << std::endl;
                 exit(-1);
             }
         } else if(len == 0) {
             std::cout << "read eof" << std::endl;
+            exit(0);
             return;
         } else {
             std::cout << "read data " << len << " bytes" << std::endl; 

@@ -12,6 +12,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include "common.h"
+#include <sys/select.h>
+#include <sys/time.h>
 void echo_client(int iFD);
 
 
