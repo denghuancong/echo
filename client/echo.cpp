@@ -49,12 +49,6 @@ void echo_client(int iFD) {
                     //add rt
                     sendline[strlen(sendline)] = '\n';
                     Write(iFD, sendline, strlen(sendline));
-                    index--;
-                    if(index==0){
-                        std::cout << "shutdown write end " << std::endl;
-                        shutdown(iFD,SHUT_WR);
-                        FD_CLR(stdfd, &rset);
-                    }
                 }
             }
         }
